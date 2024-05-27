@@ -26,10 +26,8 @@ ARG FS_META_PACKAGE=freeswitch-meta-all
 # make the "en_US.UTF-8" locale so freeswitch will be utf-8 enabled by default
 RUN apt-get update -qq  && \ 
     apt-get dist-upgrade -y && \
-    apt-get install -y --no-install-recommends locales ca-certificates gnupg2 gcc libc-dev patch wget curl && \
+    apt-get install -y --no-install-recommends locales ca-certificates gnupg2 gcc libc-dev patch wget curl busybox && \
     localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 && \
-    curl -o /busybox.deb http://ftp.us.debian.org/debian/pool/main/b/busybox/busybox_1.36.1-7_amd64.deb &&  \
-    dpkg -i /busybox.deb && rm /busybox.deb && \ 
     curl -o /usr/local/bin/su-exec.c https://raw.githubusercontent.com/ncopa/su-exec/master/su-exec.c && \
     gcc -Wall /usr/local/bin/su-exec.c -o/usr/local/bin/su-exec && \
     chown root:root /usr/local/bin/su-exec && \
