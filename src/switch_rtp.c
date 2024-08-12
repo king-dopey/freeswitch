@@ -4517,7 +4517,7 @@ SWITCH_DECLARE(switch_status_t) switch_rtp_create(switch_rtp_t **new_rtp_session
 		switch_sockaddr_create(&rtp_session->rtcp_from_addr, pool);
 	}
 
-	rtp_session->seq = (uint16_t) rand();
+	rtp_session->seq = (uint16_t) switch_rand();
 	rtp_session->ssrc = (uint32_t) ((intptr_t) rtp_session + (switch_time_t) switch_epoch_time_now(NULL));
 #ifdef DEBUG_TS_ROLLOVER
 	rtp_session->last_write_ts = TS_ROLLOVER_START;
@@ -8267,11 +8267,11 @@ static int rtp_common_write(switch_rtp_t *rtp_session,
 	if (switch_rtp_test_flag(rtp_session, SWITCH_RTP_FLAG_VIDEO)) {
 		int external = (flags && *flags & SFF_EXTERNAL);
 		/* Normalize the timestamps to our own base by generating a made up starting point then adding the measured deltas to that base
-		   so if the timestamps and ssrc of the source change, it will not break the other end's jitter bufffer / decoder etc *cough* CHROME *cough*
+		   so if the timestamps and ssrc of the source change, it will not break the other end's jitter buffer / decoder etc *cough* CHROME *cough*
 		 */
 
 		if (!rtp_session->ts_norm.ts) {
-			rtp_session->ts_norm.ts = (uint32_t) rand() % 1000000 + 1;
+			rtp_session->ts_norm.ts = (uint32_t) switch_rand() % 1000000 + 1;
 		}
 
 		if (!rtp_session->ts_norm.last_ssrc || send_msg->header.ssrc != rtp_session->ts_norm.last_ssrc || rtp_session->ts_norm.last_external != external) {
@@ -8520,9 +8520,9 @@ static int rtp_common_write(switch_rtp_t *rtp_session,
 			}
 
 			if (!rtp_session->flags[SWITCH_RTP_FLAG_SECURE_SEND_MKI]) {
-				stat = srtp_protect(rtp_session->send_ctx[rtp_session->srtp_idx_rtp], &send_msg->header, &sbytes);
+				stat = srtp_protect(rtp_session->send_ctx[rtp_session->srtp_idx_rtp], send_msg, &sbytes);
 			} else {
-				stat = srtp_protect_mki(rtp_session->send_ctx[rtp_session->srtp_idx_rtp], &send_msg->header, &sbytes, 1, SWITCH_CRYPTO_MKI_INDEX);
+				stat = srtp_protect_mki(rtp_session->send_ctx[rtp_session->srtp_idx_rtp], send_msg, &sbytes, 1, SWITCH_CRYPTO_MKI_INDEX);
 			}
 
 			if (stat) {
@@ -9044,9 +9044,9 @@ SWITCH_DECLARE(switch_status_t) switch_rtp_write_raw(switch_rtp_t *rtp_session, 
 			}
 
 			if (!rtp_session->flags[SWITCH_RTP_FLAG_SECURE_SEND_MKI]) {
-				stat = srtp_protect(rtp_session->send_ctx[rtp_session->srtp_idx_rtp], &rtp_session->write_msg.header, &sbytes);
+				stat = srtp_protect(rtp_session->send_ctx[rtp_session->srtp_idx_rtp], &rtp_session->write_msg, &sbytes);
 			} else {
-				stat = srtp_protect_mki(rtp_session->send_ctx[rtp_session->srtp_idx_rtp], &rtp_session->write_msg.header, &sbytes, 1, SWITCH_CRYPTO_MKI_INDEX);
+				stat = srtp_protect_mki(rtp_session->send_ctx[rtp_session->srtp_idx_rtp], &rtp_session->write_msg, &sbytes, 1, SWITCH_CRYPTO_MKI_INDEX);
 			}
 
 			if (stat) {
