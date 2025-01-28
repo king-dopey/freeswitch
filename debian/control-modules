@@ -149,11 +149,6 @@ Description: Nibblebill
  This module allows for real-time accounting of a cash balance and
  using that information for call routing.
 
-Module: applications/mod_oreka
-Description: Media recording with Oreka
- This module provides media recording with the Oreka cross-platfor
- audio stream recording and retrieval system.
-
 Module: applications/mod_osp
 Description: Open Settlement Protocol
  This module adds support for the Open Settlement Protocol (OSP).
@@ -308,10 +303,6 @@ Module: codecs/mod_skel_codec
 Description: Adds mod_skel_codec
  Adds mod_skel_codec.
 
-Module: codecs/mod_theora
-Description: mod_theora
- Adds mod_theora.
-
 Module: codecs/mod_yuv
 Description: Adds mod_yuv
  Adds mod_yuv.
@@ -440,10 +431,6 @@ Module: event_handlers/mod_event_test
 Description: mod_event_test
  Adds mod_event_test.
 
-Module: event_handlers/mod_event_zmq
-Description: mod_event_zmq
- Adds mod_event_zmq.
-
 Module: event_handlers/mod_format_cdr
 Description: mod_format_cdr
  Adds mod_format_cdr.
@@ -565,11 +552,6 @@ Module: languages/mod_v8
 Description: mod_v8
  Adds mod_v8.
 Build-Depends: git, libv8-6.1-dev
-
-Module: languages/mod_yaml
-Description: mod_yaml
- Adds mod_yaml.
-Build-Depends: libyaml-dev, libglib2.0-dev
 
 ## mod/loggers
 

@@ -6,8 +6,6 @@
     <load module="mod_logfile"/>
     <!-- <load module="mod_syslog"/> -->
 
-    <!--<load module="mod_yaml"/>-->
-
     <!-- Multi-Faceted -->
     <!-- mod_enum is a dialplan interface, an application interface and an api command interface -->
     <load module="mod_enum"/>
@@ -24,7 +22,6 @@
     <!-- <load module="mod_cdr_sqlite"/> -->
     <!-- <load module="mod_event_multicast"/> -->
     <load module="mod_event_socket"/>
-    <!-- <load module="mod_event_zmq"/> -->
     <!-- <load module="mod_zeroconf"/> -->
     <!-- <load module="mod_erlang_event"/> -->
     <!-- <load module="mod_smpp"/> -->
